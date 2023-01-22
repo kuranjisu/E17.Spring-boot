@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Products</title>
+</head>
+
+<style>
+
+  body {
+    background-color:  #2f3136;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 4vh;
+    align-items: center;
+    min-height: 100vh;
+    max-height: max-content;
+    width: 100vw;
+    font-family: "Poppins", sans-serif;
+    color: white;
+    overflow-x: hidden;
+    flex-direction: column;
+    position: relative;
+    gap: 2vh;
+
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+
+  }
+
+
+
+  th{
+    width: 10vw;
+    font-size: 3vh;
+    color: #60c6fe;
+
+  }
+  td{
+    font-size: 2vh;
+    text-align: center;
+
+
+  }
+
+
+
+  body::-webkit-scrollbar {
+    width: 0.3vw; /* width of the entire scrollbar */
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: #60c6fe; /* color of the scroll thumb */
+    border-radius: 10px; /* roundness of the scroll thumb */
+  }
+
+  body::-webkit-scrollbar-track {
+    background-color: #2f3136; /* color of the scroll track */
+  }
+
+  body::-webkit-scrollbar-button {
+    display: none; /* hide the scroll buttons */
+  }
+
+
+  table{
+
+    border-collapse: collapse;
+    width: 75vw;
+
+
+  }
+
+  tr{
+    border-spacing: 10px;
+  }
+
+  .myDiv{
+
+    width: 0vw;
+    height: 0vh;
+    z-index: 1;
+    align-self: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    overflow: hidden;
+    border-style: solid;
+    border-width: 1px;
+    border-color:#494949 ;
+    background-color: #36393f;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+  }
+
+  .myDiv1{
+
+    width: 0vw;
+    height: 0vh;
+    z-index: 1;
+    align-self: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    overflow: hidden;
+    border-style: solid;
+    border-width: 1px;
+    border-color:#494949 ;
+    background-color: #36393f;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+  }
+
+  form{
+    width: 30vw;
+    height: 70vh;
+
+    background-color: #36393f;
+    font-size: 1vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  form input{
+    width: 20vw;
+    font-size: 1vw;
+    font-family: "Poppins", sans-serif;
+    text-align: center;
+    border: none;
+    outline: none;
+    height: 2vw;
+  }
+
+  form label{
+    margin: 3px;
+    padding: 3px;
+
+
+  }
+
+  .highlight{
+    border-width: 10px;
+    border-color: cornflowerblue ;
+    background-color:  #2f3136;
+    margin: 1vh;
+  }
+
+
+
+
+
+  th,td{
+
+
+
+    border-bottom: 3px;
+    background-color:  #2f3136;
+
+  }
+
+  form button{
+    cursor: pointer;
+    height: 5vh;
+    margin: 1vh;
+    width: 20vw;
+    background-color:cadetblue;
+    border-style: none;
+    color: white;
+    border-radius: 30px;
+    font-size: 1vw;
+  }
+
+
+  form select{
+    width: 20vw;
+    font-size: 1vw;
+    text-align: center;
+    height: 2vw;
+    font-family: "Poppins", sans-serif;
+    border: none;
+    outline: none;
+  }
+
+  .del{
+    background-color:indianred;
+  }
+
+  table button{
+    background-color: cornflowerblue;
+    margin:3vh;
+    border-style: none;
+    min-height: 5vh;
+    min-width: 12vw;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    font-family: "Poppins", sans-serif;
+    font-size: 2vh;
+    justify-self: center;
+    align-self: center;
+
+  }
+
+
+  .material-symbols-outlined{
+    margin-right: 2vh;
+    margin-top: 2vh;
+    cursor: pointer;
+    color: indianred;
+    font-size: 4vh;
+  }
+
+
+  .btn-holder{
+    width: 100vw;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: row;
+    gap: 3vw;
+  }
+
+
+  .productId{
+    pointer-events: none;
+  }
+
+
+  #span1{
+    color: #60c6fe ;
+    margin-right: 3vw;
+    margin-top: 0vh;
+    font-size: 3vw;
+
+  }
+
+
+.image{
+
+  width: 100%;
+  height: 30vh;
+  background-size:     cover;                      /* <------ */
+  background-repeat:   no-repeat;
+  background-position: center center;
+  background-size: 90% 80%;
+
+
+ }
+
+  .logout{
+    background-color: cornflowerblue;
+    height: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 12vh;
+    font-size: 1vh;
+    border-radius: 40px;
+    margin-left: 1vw;
+    position: fixed;
+    z-index: 1;
+    left: 1vh;
+    top: 3.5vh;
+
+  }
+
+  .wrapper{
+    display: flex;
+    justify-content: flex-start;
+    width: 99vw
+  }
+
+  .btn-holder{
+    position: fixed;
+    height: 3vh;
+  }
+
+
+</style>
+<body>
+
+
+<a th:href="@{/logout}" class="logout">LOGOUT</a>
+
+<div class="btn-holder">
+
+
+
+  <h1 th:text="${userid}" id="h1"></h1>
+  <span class="material-symbols-outlined" id="span1">add_circle</span>
+
+
+
+
+</div>
+
+
+<table id="myTable">
+  <tr class="header">
+    <th>ID</th>
+    <th>IMAGE</th>
+    <th>PRODUCT</th>
+    <th>PRICE</th>
+    <th>QUANTITY</th>
+    <th></th>
+
+
+  </tr>
+  <tr th:each="entry : ${products}" class="highlight">
+    <td th:text="${entry.productId}" class="td1"></td>
+    <td>
+      <div class="image" th:style="'background-image: url(' + ${entry.imageUrl} + ');'"></div>
+    </td>
+    <td th:text="${entry.productName}" class="td2"></td>
+    <td th:text="${entry.price}" class="td3"></td>
+    <td th:text="${entry.quantity}" class="td4"></td>
+    <td>
+      <button id="action" class="action">UPDATE/DELETE</button>
+    </td>
+
+
+  </tr>
+</table>
+
+
+<div class="myDiv" id="myDiv">
+<span class="material-symbols-outlined" id="span">
+cancel
+</span>
+
+
+
+  <form th:action="@{/save}" method="post">
+
+    <label>PRODUCT ID</label>
+    <input type="text" name="productId"  class="productId" id="productId">
+
+
+    <label>IMAGE</label>
+    <input type="text" name ="imageUrl" id="imageUrl" class="imageUrl">
+
+    <label>PRODUCT</label>
+    <input type="text" name="productName" id="productName" class="productName">
+
+    <label>PRICE</label>
+    <input type="text" name ="price" id="price" class="price">
+
+    <label>QUANTITY</label>
+    <input type="text" name ="quantity" id="quantity" class="quantity">
+
+    <input type="hidden" th:value="${userid}" name="Username">
+    <br>
+    <br>
+    <button type="submit" name="submitButton" value="update" id="update" onclick="notifupdate()">Update</button>
+    <button type="submit" name="submitButton" value="delete" class="del" id="delete" onclick="notifDelete()">Delete</button>
+
+  </form>
+
+</div>
+
+
+
+
+<div class="myDiv1" id="myDiv1">
+
+  <span class="material-symbols-outlined" id="span2">
+cancel
+</span>
+  <form action="/addProduct" method="POST">
+    <label>Product Name</label>
+    <input type="text" name="productName" id="productName1" class="productName1">
+
+    <label>Price</label>
+    <input type="text" name ="price" id="price1" class="price1">
+
+    <label>Quantity</label>
+    <input type="text" name ="quantity" id="quantity1" class="quantity1">
+
+    <label>ImageUrl</label>
+    <input type="text" name ="imageUrl" id="imageUrl1" class="imageUrl">
+
+    <input type="hidden" th:value="${userid}" name="Username" id="Username">
+
+
+
+    <br><br>
+    <button id="task" onclick="checker()">Add</button>
+  </form>
+</div>
+
+
+
+
+
+
+
+<script>
+
+
+  $(document).ready(function(){
+    $(".action").click(function(){
+      var row = $(this).closest('tr');
+      var productId = row.find('.td1').text();
+      var productName = row.find('.td2').text();
+      var price = row.find('.td3').text();
+      var quantity = row.find('.td4').text();
+      var imageUrl = row.find('.image').css('background-image').replace('url(','').replace(')','');
+
+
+
+      myDiv.style.width = "max-content";
+      myDiv.style.height = "max-content";
+      myDiv1.style.width = "0px";
+      myDiv1.style.height = "0px";
+      document.querySelector(".productId").value = productId;
+      document.querySelector(".imageUrl").value = imageUrl;
+      document.querySelector(".productName").value = productName;
+      document.querySelector(".price").value = price;
+      document.querySelector(".quantity").value = quantity;
+
+
+
+
+
+
+
+
+      // do something with the values, such as displaying them in an alert
+      console.log({productId, productName, price, quantity, imageUrl});
+    });
+  });
+
+
+
+
+
+  let task = document.getElementById("task");
+
+  function checker(){
+
+    let productName= document.querySelector("#productName1").value;
+    let price = document.querySelector("#price1").value;
+    let quantity = document.querySelector("#quantity1").value;
+    let imageUrl = document.querySelector("#imageUrl1").value;
+
+
+
+    if( productName== ""  ){
+      alert("input field is missing!")
+    }
+    else if(price == ""  ){
+      alert("input field is missing!")
+    }
+    else if(quantity == ""  ){
+      alert("input field is missing!")
+    }
+    else if(imageUrl == ""  ){
+      alert("input field is missing!")
+    }
+
+
+    else{
+      alert("product Added !")
+    }
+
+  }
+
+
+
+
+
+
+
+  function notifupdate(){
+    alert("product updated!")
+  }
+
+  function notifDelete(){
+    alert("product deleted!")
+  }
+
+  let mySpan2 = document.getElementById("span2");
+
+  mySpan2.addEventListener("click", function() {
+
+    myDiv1.style.width = "0px";
+    myDiv1.style.height = "0px";
+
+  });
+
+
+
+  let myDiv = document.getElementById("myDiv");
+  let mySpan = document.getElementById("span");
+
+  let myDiv1 = document.getElementById("myDiv1");
+
+  mySpan.addEventListener("click", function() {
+
+    myDiv.style.width = "0px";
+    myDiv.style.height = "0px";
+
+  });
+
+  let mySpan1 = document.getElementById("span1");
+  mySpan1.addEventListener("click", function() {
+
+
+    myDiv.style.width = "0px";
+    myDiv.style.height = "0px";
+    myDiv1.style.width = "max-content";
+    myDiv1.style.height = "max-content";
+
+  });
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+</div>
+</body>
+</html>
